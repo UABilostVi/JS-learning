@@ -6,8 +6,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <Header></Header>
-        React app
+      <Header/>
+        App body
       </div>
     );
   }
