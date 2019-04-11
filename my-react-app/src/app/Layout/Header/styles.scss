@@ -1,9 +1,4 @@
 
-.container {
-  max-width: 1070px;
-  margin: 0 auto;
-}
-
 .header {
   background: red;
 }
@@ -12,4 +7,8 @@
   img {
     height: 100px;
   }
+}
+
+a {
+  cursor: pointer;
 }

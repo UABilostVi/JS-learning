@@ -42,11 +42,11 @@ export class Main extends React.Component {
 		return (
 			<main className="main">
 				<Container>
-			    { users.map((user, id) => (
-				<UserItem user={user} key={id} />
-			    ))}
-			    </Container>
-		</main>	
+					{users.map((user, id) => (
+						<UserItem user={user} key={id} />
+					))}
+				</Container>
+			</main>
 		)
 	}
 }
