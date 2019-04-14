@@ -6,14 +6,17 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
-  NavLink,
   NavItem,
   Container
 } from 'reactstrap';
+import {Link} from "react-router-dom";
 
-var links = ["Main", "About", "Contacts"];
+var links = [
+  { title: "Main", url: "/" },
+  { title: "About", url: "/about" },
+  { title: "Contacts", url: "/contacts" }
+];
 
 export class Header extends React.Component {
 
@@ -30,13 +33,19 @@ export class Header extends React.Component {
     return <header className="header">
         <Navbar color="info" light expand="md">
           <Container>
-            <NavbarBrand href="/"><img src={logo} alt="logo" /></NavbarBrand>
+              <Link to="/" className='logo navbar-brand'>
+                <img src={logo} alt="logo"/>
+              </Link>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
-                {links.map(item => <NavItem key={item}>
-                  <NavLink> {item} </NavLink>
-                </NavItem>)}
+                {links.map(item => (
+                <NavItem key={item.url}>
+                  <Link to={item.url} className='nav-link'>
+                    {item.title}
+                  </Link>
+                </NavItem>
+                ))}
               </Nav>
             </Collapse>
           </Container>

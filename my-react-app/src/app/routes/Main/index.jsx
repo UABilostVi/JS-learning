@@ -1,30 +1,39 @@
 import React from 'react';
 import { UserItem } from "./UserItem";
-import { Container } from "reactstrap";
+import { Container, Alert } from "reactstrap";
 import axios from 'axios';
 
 export class Main extends React.Component {
 	state = {
-		users: []
+		users: [],
+		error: null
 	};
+
 	componentDidMount(){
-		axios.get('https://api.github.com/users')
+		axios
+		.get('https://api.github.com/users')
 		.then(response => {
 			 const { data } = response;
-			 this.setState({ users:data });
+			 this.setState({ users: data });
 		})
-		.catch((err)=>console.log('something wrong'));
+		.catch(err => this.setState({ error: err }));
 	}
 
 
 	render() {
-		const { users } = this.state;
+		const { users, error } = this.state;
+		const { history } = this.props;
+		const errorComponent = error ? (
+			<Alert color="danger">Something went wrong</Alert>
+		) : null;
+
 		return (
 			<main className="main" onClick={this.onClickHandler}>
-				<Container id="test">
-					{users.map((user, id) => (
-						<UserItem user={user} key={id} />
-					))}
+				{errorComponent}
+				<Container>
+					{users.map((user, id) => {
+						return <UserItem user={user} key={id} history={history}/>
+					})}
 				</Container>
 			</main>
 		)
