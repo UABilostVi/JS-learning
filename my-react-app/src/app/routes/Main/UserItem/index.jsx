@@ -9,8 +9,8 @@ export class UserItem extends React.Component {
 		const { user } = this.props;
 		return (
 			<Col className="user-info">
-				<img src={user.avatar_url} alt="github-user" />
 				<Link to={`user/${user.login}`}>
+				    <img src={user.avatar_url} alt="github-user" />
 					<p> {`User login - ${user.login}`} </p>
 				</Link>
 			</Col >
