@@ -15,7 +15,8 @@ import {Link} from "react-router-dom";
 var links = [
   { title: "Main", url: "/" },
   { title: "About", url: "/about" },
-  { title: "Contacts", url: "/contacts" }
+  { title: "Contacts", url: "/contacts" },
+  { title: "About me", url: "/about-me" }
 ];
 
 export class Header extends React.Component {

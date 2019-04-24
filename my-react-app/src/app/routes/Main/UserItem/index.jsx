@@ -4,9 +4,7 @@ import { Col } from "reactstrap";
 import { Link } from 'react-router-dom';
 import "./styles.scss";
 
-export class UserItem extends React.Component {
-	render() {
-		const { user } = this.props;
+export const UserItem = ({ user}) => {
 		return (
 			<Col className="user-info">
 				<Link to={`user/${user.login}`}>
@@ -15,8 +13,7 @@ export class UserItem extends React.Component {
 				</Link>
 			</Col >
 		);
-	}
-}
+	};
 
 UserItem.propTypes = {
 	user: PropTypes.object
