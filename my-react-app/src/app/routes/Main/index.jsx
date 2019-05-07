@@ -1,6 +1,7 @@
 import React from 'react';
 import { UserItem } from "./UserItem";
 import { Container, Alert, Button, Col } from "reactstrap";
+import { Accordeon } from '../../components'
 import axios from 'axios';
 import './styles.scss';
 
@@ -8,11 +9,22 @@ export class Main extends React.Component {
 	state = {
 		users: [],
 		sort: null,
-		error: null
+		error: null,
+		isOpen: false
 	};
+
+	constructor(props) {
+		super(props);
+		this.butRef = React.createRef();
+	}
+
+	componentWillMount() {
+		console.log(this.butRef);
+	}
 
 	async componentDidMount() {
 		try {
+			console.log(this.butRef);
 			const { data } = await axios.get('https://api.github.com/users')
 			this.setState({ users: data });
 	    } catch(e) {
@@ -46,6 +58,10 @@ export class Main extends React.Component {
 		this.setState({ users: sortedUsers, sort: sortDirection});
 	};
 
+	onClickAccordeon = () => {
+		this.setState({ isOpen: !this.state.isOpen });
+		console.log('click')
+	};
 
 	render() {
 		const { users, error } = this.state;
@@ -59,7 +75,15 @@ export class Main extends React.Component {
 				{errorComponent}
 				<Container>
 					<Col className="sort-controls">
-						<Button color='primary' onClick={this.sortItems}>Sort</Button>
+						<Button color='primary' onClick={this.sortItems} id="but123">
+							Sort
+						</Button>
+						<Accordeon 
+							title="Section 1" 
+							list={['list 1.1', 'list 1.2']}
+							isOpen={this.state.isOpen}
+							onClick={this.onClickAccordeon}
+						/>
 					</Col>
 					<Col className="d-flex flex-wrap">
 						{users.map((user, id) => {

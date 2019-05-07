@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.scss';
 import PropTypes from 'prop-types';
-import logo from '../../../utils/images/logo.png';
+import logo from '../../../../utils/images/logo.png';
 import {
   Collapse,
   Navbar,
