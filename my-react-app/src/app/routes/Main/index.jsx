@@ -1,13 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { UserItem } from "./UserItem";
 import { Container, Alert, Button, Col } from "reactstrap";
 import { Accordeon } from '../../components'
 import axios from 'axios';
+import {
+	getUsersActionSuccess,
+	getUsersActionError
+} from '../../store/actions/users';
 import './styles.scss';
 
 export class Main extends React.Component {
 	state = {
-		users: [],
 		sort: null,
 		error: null,
 		isOpen: false
@@ -18,17 +22,12 @@ export class Main extends React.Component {
 		this.butRef = React.createRef();
 	}
 
-	componentWillMount() {
-		console.log(this.butRef);
-	}
-
 	async componentDidMount() {
 		try {
-			console.log(this.butRef);
 			const { data } = await axios.get('https://api.github.com/users')
-			this.setState({ users: data });
+			this.props.getUsersSuccess(data);
 	    } catch(e) {
-				this.setState({ error: e })
+				this.props.getUsersErr(e)
 			}
 		}
 		
@@ -64,8 +63,7 @@ export class Main extends React.Component {
 	};
 
 	render() {
-		const { users, error } = this.state;
-		const { history } = this.props;
+		const { history, userData, error } = this.props;
 		const errorComponent = error ? (
 			<Alert color="danger">Something went wrong</Alert>
 		) : null;
@@ -86,7 +84,7 @@ export class Main extends React.Component {
 						/>
 					</Col>
 					<Col className="d-flex flex-wrap">
-						{users.map((user, id) => {
+						{usersData.map((user, id) => {
 							return <UserItem user={user} key={id} history={history} />
 						})}
 					</Col>
@@ -95,3 +93,18 @@ export class Main extends React.Component {
 		)
 	}
 }
+
+const mapStateToProps = state => ({
+	usersData: state.users.data,
+	error: state.users.err
+});
+
+const mapDispatchToProps = dispatch => ({
+	getUsersSuccess: data => dispatch(getUsersActionSuccess(data)),
+	getUsersErr: err => dispatch(getUsersActionError(err))
+});
+
+export const Main = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(MainComponent);

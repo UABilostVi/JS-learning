@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Layout } from "./components";
 import { Main, UserPage } from './routes';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter >
           <Layout>
             <Switch>
               <Route exact path='/' component={Main}/>
@@ -16,7 +19,8 @@ class App extends Component {
               <Route path='/404' component={()=><div>Not found</div>} />
             </Switch>
           </Layout>
-      </BrowserRouter>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }

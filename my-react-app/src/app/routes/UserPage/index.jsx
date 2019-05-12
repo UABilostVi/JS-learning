@@ -7,7 +7,8 @@ import moment from 'moment';
 export class UserPage extends React.Component {
 	state = {
 		user: null,
-		repos: []
+		repos: [],
+		sortKey: null
 	};
 
 async componentDidMount() {
