@@ -1,15 +1,11 @@
-import { GET_USERS, GET_USERS_SUCCESS, GET_USERS_ERROR } from '../constants/users';
-
-export const getUsersAction = () => ({
-	type: GET_USERS
-});
+import { GET_USERS_SUCCESS, GET_USERS_ERROR } from '../constants/users';
 
 export const getUsersActionSuccess = payload => ({
 	type: GET_USERS_SUCCESS,
-	payload
+	payload: payload
 });
 
 export const getUsersActionError = err => ({
 	type: GET_USERS_ERROR,
-	payload
+	payload: err
 });

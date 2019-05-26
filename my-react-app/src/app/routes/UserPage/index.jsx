@@ -25,15 +25,49 @@ async componentDidMount() {
 	}
 
 	sortItems = id => {
+		const { repos, sortKey} = this.state;
+		let sortedItems;
 		switch (id) {
 			case 'id':
-				this.setState({ repos: this.state.repos.sort() });
+				if (sortKey !== 'id') {
+					sortedItems = repos.sort((a,b) => a.id - b.id);
+				} else if (sortKey === 'id') {
+					sortedItems = repos.reverse();
+				}
+				this.setState({
+					repos: sortedItems,
+					sortKey: 'id'
+				});
 				break;
 			case 'language':
-				this.setState({ repos: this.state.repos.sort() });
+				if (sortKey !== 'language') {
+					sortedItems = repos.sort((a,b) => {
+					 if (a.language > b.language) {
+						 return 1;
+					 }
+					 if (a.language < b.language) {
+						 return -1;
+					 }
+					 return 0;
+					});
+				} else if (sortKey === 'language') {
+					sortedItems = repos.reverse();
+				}
+				this.setState({
+					repos: sortedItems,
+					sortKey: 'language'
+				});
 				break;
 			case 'createdAt':
-				this.setState({ repos: this.state.repos.sort() });
+				if (sortKey !== 'createdAt') {
+					sortedItems = repos.sort((a, b) => moment(a.created_at).diff(b.created_at));
+				} else if (sortKey === 'createdAt') {
+					sortedItems = repos.reverse();
+				}
+				this.setState({
+					repos: sortedItems,
+					sortKey: 'createdAt'
+				});
 				break;
 			default:
 				break;

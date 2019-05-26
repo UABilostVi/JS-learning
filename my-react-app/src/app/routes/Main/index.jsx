@@ -10,7 +10,7 @@ import {
 } from '../../store/actions/users';
 import './styles.scss';
 
-export class Main extends React.Component {
+class MainComponent extends React.Component {
 	state = {
 		sort: null,
 		error: null,
@@ -63,7 +63,7 @@ export class Main extends React.Component {
 	};
 
 	render() {
-		const { history, userData, error } = this.props;
+		const { history, usersData, error } = this.props;
 		const errorComponent = error ? (
 			<Alert color="danger">Something went wrong</Alert>
 		) : null;
@@ -84,9 +84,9 @@ export class Main extends React.Component {
 						/>
 					</Col>
 					<Col className="d-flex flex-wrap">
-						{usersData.map((user, id) => {
+						{ usersData.map((user, id) => {
 							return <UserItem user={user} key={id} history={history} />
-						})}
+						}) }
 					</Col>
 				</Container>
 			</main>
